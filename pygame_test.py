@@ -1,6 +1,7 @@
 import pygame
 import sys
 from pygame.locals import *
+import math
 
 
 class Game:
@@ -51,7 +52,7 @@ class Game:
     def run(self):
         pass
 
-a = Game("sample_input.txt")
+test = Game("sample_input.txt")
 
 
 
@@ -69,15 +70,24 @@ BLUE = (0,0,255)
 
 
 pygame.init()
-DISPLAYSURF = pygame.display.set_mode((800,800))
+DISPLAYSURF = pygame.display.set_mode((300,300))
 # pygame.display.init()
 pygame.display.set_caption("Hello World!")
 
 
 DISPLAYSURF.fill(WHITE)
 # circle(Surface, color, pos, radius, width=0)
-x = round(sin(2*3.14/N_points))
-pygame.draw.circle(DISPLAYSURF,BLUE, (300,50), 5, 0)
+
+circle_location = []
+counter = 0
+while counter <=test.num_points:
+    # TO DO: SCALING
+    y = int(round(math.sin(2*3.14/test.num_points*counter)))*60+100
+    # print (2*3.14/test.num_points*counter)
+    x = int(round(math.cos(2*3.14/test.num_points*counter)))*60 +100
+    pygame.draw.circle(DISPLAYSURF,BLUE, (x,y), 6, 0)
+    counter +=1
+    circle_location.append((x,y))
 
 
 while True:
