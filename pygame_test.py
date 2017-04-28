@@ -1,6 +1,6 @@
-import pygame
+# import pygame
 import sys
-from pygame.locals import *
+# from pygame.locals import *
 import math
 
 
@@ -54,6 +54,17 @@ class Game:
 
 test = Game("sample_input.txt")
 
+# TRASH
+# class Point:
+#
+#     def __init__(self, special = False, name = 0):
+#         self.special = special
+#         self.name = name
+#
+# class Link:
+#     def __init__(self, point1, point2):
+#         lower = min(point1.name, point2.name)
+#         higher = max(point1.name, point2.name)
 
 
 
@@ -61,6 +72,8 @@ test = Game("sample_input.txt")
 
 
 
+'''
+# PYGAME STUFF
 # set up the colors
 BLACK = (0,0,0)
 WHITE = (255,255,255)
@@ -89,6 +102,8 @@ while counter <=test.num_points:
     counter +=1
     circle_location.append((x,y))
 
+for link in test.links:
+
 
 while True:
     for event in pygame.event.get():
@@ -98,3 +113,4 @@ while True:
 
 
     pygame.display.update()
+'''
