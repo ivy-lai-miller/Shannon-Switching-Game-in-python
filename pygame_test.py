@@ -10,7 +10,7 @@ class Game:
     def __init__(self, fname):
 
         self.num_points = None
-        self.links = {}
+        self.links = []
         self.special= []
 
         # Read in the file and give it points
@@ -26,24 +26,27 @@ class Game:
                 continue
             if line[0] == "P":
                 self.num_points = int(line[1])
-                self.links[self.num_points] = []
+                # self.links[self.num_points] = []
             if line[0] == "L":
-                check1 = int(line[1])
-                check2 = int(line[2])
-                num_links = int(line[3])
-                x = 0
-                while x <= num_links:
-                    self.links[check1] = check2
-                    self.links[check2] = check1
-                    x+=1
+                for counter in range(int(line[3])):
+                    self.links.append((int(line[1]), int(line[2])))
+                # For Dictionary
+                # check1 = int(line[1])
+                # check2 = int(line[2])
+                # num_links = int(line[3])
+                # x = 0
+                # while x <= num_links:
+                #     self.links[check1] = check2
+                #     self.links[check2] = check1
+                #     x+=1
 
             if line[0] == "S":
-                self.special.append(line[1])
-                self.special.append(line[2])
+                self.special.append(int(line[1]))
+                self.special.append(int(line[2]))
 
         # FOR TESTING
         print "Number of points: %d" %self.num_points
-        print "Dictionary of links: %s"  % self.links
+        print "Array of links: %s"  % self.links
         print "Special points: %s" % self.special
 
     def win_status(self):
@@ -52,17 +55,27 @@ class Game:
 
 
     def lose(self):
+        
         # If no more possible path between special nodes, then you lose
         pass
 
     def show_board(self):
         G = nx.MultiGraph()
+        G.add_node(self.num_points)
+        G.add_edges_from(self.links)
+
+        for node in G.node:
+            # red nodes are special
+            if node not in self.special:
+                G.node[node]["fill"] = "blue"
+
         # G.add_edge('0','2')
         # G.node['0']["outline"] = "blue"
         # G.node['2']["outline"] = "blue"
+        # print nx.local_node_connectivity(G,'0', '2')
 
-        # Make connections first
-        # for connection in self.links:
+        # G.add_node(self.num_points)
+        # G.add_edge(lower,upper)
 
 
 
