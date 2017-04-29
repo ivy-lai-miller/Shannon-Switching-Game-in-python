@@ -4,6 +4,7 @@ import sys
 import math
 import networkx as nx
 from networkx_viewer import Viewer
+import networkx.algorithms.connectivity as con
 
 class Game:
 
@@ -55,27 +56,28 @@ class Game:
 
 
     def lose(self):
-        
+
         # If no more possible path between special nodes, then you lose
         pass
 
-    def show_board(self):
-        G = nx.MultiGraph()
-        G.add_node(self.num_points)
-        G.add_edges_from(self.links)
-
-        for node in G.node:
-            # red nodes are special
-            if node not in self.special:
-                G.node[node]["fill"] = "blue"
-
-        # G.add_edge('0','2')
-        # G.node['0']["outline"] = "blue"
-        # G.node['2']["outline"] = "blue"
-        # print nx.local_node_connectivity(G,'0', '2')
-
-        # G.add_node(self.num_points)
-        # G.add_edge(lower,upper)
+    # def show_board(self):
+    #     G = nx.MultiGraph()
+    #     G.add_node(self.num_points)
+    #     G.add_edges_from(self.links)
+    #
+    #     for node in G.node:
+    #         # red nodes are special
+    #         if node not in self.special:
+    #             G.node[node]["fill"] = "blue"
+    #
+    #     # shows the localal
+    #     print con.local_node_connectivity(G, 1,2)
+    #     # G.add_edge('0','2')
+    #     # G.node['0']["outline"] = "blue"
+    #     # G.node['2']["outline"] = "blue"
+    #
+    #     # G.add_node(self.num_points)
+    #     # G.add_edge(lower,upper)
 
 
 
@@ -83,10 +85,72 @@ class Game:
         app.mainloop()
 
     def run(self):
-        pass
+        G = nx.MultiGraph()
+        G.add_node(self.num_points)
+        G.add_edges_from(self.links)
+        status = None
+
+        for node in G.node:
+            # red nodes are special
+            if node not in self.special:
+                G.node[node]["fill"] = "blue"
+
+        first = raw_input("Who do you want to go first? Type SHORT or CUT>>")
+        if first.upper() == "SHORT":
+            status = "SHORT"
+        elif first.upper() == "CUT":
+            status = "CUT"
+        else:
+            print "Bad input"
+            sys.exit(1)
+
+        playing = True
+
+        while playing:
+
+            Viewer(G).mainloop()
+
+            if status == "SHORT":
+                print "\nSHORT's move. Type EXIT to end. a b to short the edge between a and b."
+                raw = raw_input("What would you like to do? ")
+                # pass
+
+            if status == "CUT":
+                print "\nCUT's move. Type EXIT to end. a b to delete the edge between a and b."
+                raw = raw_input("What would you like to do? ")
+                # pass
+
+            # raw = raw_input("Type EXIT TO end")
+            if raw == "EXIT":
+                playing = False
+            else:
+                if status == "SHORT":
+                # If you SHORT, the  two points merge
+                # Update connections
+                # Make sure you also update the status now to SHORT
+                    pass
+
+                if status == "CUT":
+                    # If you cut, the connection is gone
+                    # Make sure you also update the status now to SHORT
+                    a, b = map(int, raw.split())
+                    try:
+                        G.remove_edge(a,b)
+                    except:
+                        print "Bad input!"
+                # if con.local_edge_connectivity(G,0,2):
+                #     print "Still connected!"
+                else:
+                    print "Graph split, you won!"
+                    playing = False
+
+        print "Bye!"
+
+
+
 
 test = Game("sample_input.txt")
-test.show_board()
+test.run()
 
 # TRASH
 # class Point:
