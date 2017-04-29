@@ -2,7 +2,8 @@
 import sys
 # from pygame.locals import *
 import math
-
+import networkx as nx
+from networkx_viewer import Viewer
 
 class Game:
 
@@ -49,10 +50,30 @@ class Game:
         if len(self.special) == 1:
             return True
 
+
+    def lose(self):
+        # If no more possible path between special nodes, then you lose
+        pass
+
+    def show_board(self):
+        G = nx.MultiGraph()
+        # G.add_edge('0','2')
+        # G.node['0']["outline"] = "blue"
+        # G.node['2']["outline"] = "blue"
+
+        # Make connections first
+        # for connection in self.links:
+
+
+
+        app = Viewer(G)
+        app.mainloop()
+
     def run(self):
         pass
 
 test = Game("sample_input.txt")
+test.show_board()
 
 # TRASH
 # class Point:
