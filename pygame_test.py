@@ -115,7 +115,7 @@ class Game:
                 raw = raw_input("What would you like to do? ")
                 # pass
 
-            if status == "CUT":
+            if status.upper() == "CUT":
                 print "\nCUT's move. Type EXIT to end. a b to delete the edge between a and b."
                 raw = raw_input("What would you like to do? ")
                 # pass
@@ -128,21 +128,38 @@ class Game:
                 # If you SHORT, the  two points merge
                 # Update connections
                 # Make sure you also update the status now to SHORT
-                    pass
+                    c, d = map(int, raw.split())
+                    G=nx.contracted_edge(G,(c,d))
+                    if (c==self.special[0] and d==self.special[1]) or (c==self.special[1] and d==self.special[0]):
+                        print "Short wins"
+                        playing=False
+                    else:
+                        status= "CUT"
 
                 if status == "CUT":
                     # If you cut, the connection is gone
                     # Make sure you also update the status now to SHORT
-                    a, b = map(int, raw.split())
+                    a, b = map(int, raw.split()) #this works there just has to be a space between the two numbers
                     try:
                         G.remove_edge(a,b)
+                        if (nx.has_path(G,self.special[0],self.special[1])==False):
+                            print "Cut wins"
+                            playing= False
+                        else:
+                            status="SHORT"
+                        
                     except:
-                        print "Bad input!"
+                        continue
+                        #print "Bad input!"
+                
+                #if status=="SHORT" and G.has_edge(self.special[0],self.special[1])==True:
+                    #print "Short wins"
+                    #playing =False
                 # if con.local_edge_connectivity(G,0,2):
                 #     print "Still connected!"
-                else:
-                    print "Graph split, you won!"
-                    playing = False
+                #else:
+                    #print "Graph split, you won!"
+                    #playing = False
 
         print "Bye!"
 
