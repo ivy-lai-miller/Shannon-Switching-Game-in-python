@@ -46,19 +46,19 @@ class Game:
                 self.special.append(int(line[2]))
 
         # FOR TESTING
-        print "Number of points: %d" %self.num_points
-        print "Array of links: %s"  % self.links
-        print "Special points: %s" % self.special
+        # print "Number of points: %d" %self.num_points
+        # print "Array of links: %s"  % self.links
+        # print "Special points: %s" % self.special
 
-    def win_status(self):
-        if len(self.special) == 1:
-            return True
-
-
-    def lose(self):
-
-        # If no more possible path between special nodes, then you lose
-        pass
+    # def win_status(self):
+    #     if len(self.special) == 1:
+    #         return True
+    #
+    #
+    # def lose(self):
+    #
+    #     # If no more possible path between special nodes, then you lose
+    #     pass
 
     # def show_board(self):
     #     G = nx.MultiGraph()
@@ -80,9 +80,9 @@ class Game:
     #     # G.add_edge(lower,upper)
 
 
-
-        app = Viewer(G)
-        app.mainloop()
+        #
+        # app = Viewer(G)
+        # app.mainloop()
 
     def run(self):
         G = nx.MultiGraph()
@@ -95,7 +95,7 @@ class Game:
             if node not in self.special:
                 G.node[node]["fill"] = "blue"
 
-        first = raw_input("Who do you want to go first? Type SHORT or CUT>>")
+        first = raw_input("Who do you want to go first? Type SHORT or CUT>> ")
         if first.upper() == "SHORT":
             status = "SHORT"
         elif first.upper() == "CUT":
@@ -129,6 +129,7 @@ class Game:
                 # Update connections
                 # Make sure you also update the status now to SHORT
                     c, d = map(int, raw.split())
+                    # contracted_edge
                     G=nx.contracted_edge(G,(c,d))
                     if (c==self.special[0] and d==self.special[1]) or (c==self.special[1] and d==self.special[0]):
                         print "Short wins"
@@ -147,11 +148,11 @@ class Game:
                             playing= False
                         else:
                             status="SHORT"
-                        
+
                     except:
                         continue
                         #print "Bad input!"
-                
+
                 #if status=="SHORT" and G.has_edge(self.special[0],self.special[1])==True:
                     #print "Short wins"
                     #playing =False
@@ -165,9 +166,12 @@ class Game:
 
 
 
-
-test = Game("sample_input.txt")
-test.run()
+if len(sys.argv)<= 1:
+    print "Include file name in command line."
+else:
+    test = Game(sys.argv[1])
+    # a.prnt()
+    test.run()
 
 # TRASH
 # class Point:
@@ -180,52 +184,3 @@ test.run()
 #     def __init__(self, point1, point2):
 #         lower = min(point1.name, point2.name)
 #         higher = max(point1.name, point2.name)
-
-
-
-
-
-
-
-'''
-# PYGAME STUFF
-# set up the colors
-BLACK = (0,0,0)
-WHITE = (255,255,255)
-RED = (255,0,0)
-GREEN = (0,255,0)
-BLUE = (0,0,255)
-
-
-pygame.init()
-DISPLAYSURF = pygame.display.set_mode((300,300))
-# pygame.display.init()
-pygame.display.set_caption("Hello World!")
-
-
-DISPLAYSURF.fill(WHITE)
-# circle(Surface, color, pos, radius, width=0)
-
-circle_location = []
-counter = 0
-while counter <=test.num_points:
-    # TO DO: SCALING
-    y = int(round(math.sin(2*3.14/test.num_points*counter)))*60+100
-    # print (2*3.14/test.num_points*counter)
-    x = int(round(math.cos(2*3.14/test.num_points*counter)))*60 +100
-    pygame.draw.circle(DISPLAYSURF,BLUE, (x,y), 6, 0)
-    counter +=1
-    circle_location.append((x,y))
-
-for link in test.links:
-
-
-while True:
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-
-
-    pygame.display.update()
-'''
