@@ -29,7 +29,10 @@ class Game:
                 self.num_points = int(line[1])
                 # self.links[self.num_points] = []
             if line[0] == "L":
-                for counter in range(int(line[3])):
+                if len(line) > 3:
+                    for counter in range(int(line[3])):
+                        self.links.append((int(line[1]), int(line[2])))
+                else:
                     self.links.append((int(line[1]), int(line[2])))
 
             if line[0] == "S":
