@@ -17,7 +17,6 @@ class Game:
         # Read in the file and give it points
         fptr= open(fname, "r").read()
         lines = fptr.split("\n")
-        # TO DO read in the file
 
         for line in lines:
             # check if split
@@ -27,7 +26,7 @@ class Game:
                 continue
             if line[0] == "P":
                 self.num_points = int(line[1])
-                # self.links[self.num_points] = []
+
             if line[0] == "L":
                 if len(line) > 3:
                     for counter in range(int(line[3])):
@@ -76,24 +75,28 @@ class Game:
                 raw = raw_input("What would you like to do? ")
                 # pass
 
-            # raw = raw_input("Type EXIT TO end")
             if raw == "EXIT":
                 playing = False
+
+                # check if a move is valid
             else:
                 if status == "SHORT":
                 # If you SHORT, the  two points merge
                 # Update connections
                 # Make sure you also update the status now to SHORT
                     c, d = map(int, raw.split())
-                    if d in self.special:
-                        c,d = d,c
-                    # contracted_edge
-                    G=nx.contracted_edge(G,(c,d))
-                    if (c==self.special[0] and d==self.special[1]) or (c==self.special[1] and d==self.special[0]):
-                        print "Short wins"
-                        playing=False
-                    else:
-                        status= "CUT"
+                    try:
+                        if d in self.special:
+                            c,d = d,c
+                        # contracted_edge
+                        G=nx.contracted_edge(G,(c,d))
+                        if (c==self.special[0] and d==self.special[1]) or (c==self.special[1] and d==self.special[0]):
+                            print "Short wins"
+                            playing=False
+                        else:
+                            status= "CUT"
+                    except:
+                        print "Bad input!"
 
                 if status == "CUT":
                     # If you cut, the connection is gone
@@ -108,17 +111,15 @@ class Game:
                             status="SHORT"
 
                     except:
-                        continue
-                        #print "Bad input!"
+                        # continue
+                        print "Bad input!"
 
 
         print "Bye!"
 
-
-
+# Use argv to load in the input file
 if len(sys.argv)<= 1:
     print "Include file name in command line."
 else:
     test = Game(sys.argv[1])
-    # a.prnt()
     test.run()
