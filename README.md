@@ -7,17 +7,13 @@ NetworkX: http://networkx.github.io
 
 NetworkX Viewer: https://github.com/jsexauer/networkx_viewer
 
-## Section I: Introduction to Shannon Switching Game
+## 1. Introduction to Shannon Switching Game
 
 ### Rules
 
 
 Laura
-## Section II: Loading an input file
-Laura
-## Section III: Gameplay
-
-### Importing a board
+## 2. Loading an input file
 The file requires an input file of type .txt (although .input files should also work). The input file should have the information shown below. Comments can be made within the setup file with a line starting with '#'.
 
 Designate the number of nodes/points as follows
@@ -30,6 +26,8 @@ Designate the special nodes (2) as follows.
 Designate the link between nodes as follows. If number of same links unspecified, the game will assume there is only one link.
 
     L [Node 1] [Node 2] [Number of same links]
+
+## 3. Gameplay
 
 ### Playing the game
 Start running the code in terminal. The code accepts the setup file as an input argument (using argv). For example, if the sample board is in the same folder as the code, you can type the following in your command line:
@@ -48,7 +46,7 @@ After choosing the mode, a window should pop out to display the current network 
 
 The game always ends with one of the two players winning. If the special nodes cannot be connected (ie there is no path between the nodes), then _CUT_ wins. If the two special nodes have merged, then _SHORT_ wins.
 
-## Section IV: Code Explanation/Run-Through
+## 4. Code Explanation/Run-Through
 
 This code uses a Game class that will be initialized with a setup file. The initialization will be checked for errors and bugs within the setup file. There may be some interpretation issues if file is written on a Windows-based computer and read on a Linux or Mac. Simply copy the text in the input file and paste to a new file.
 
