@@ -19,15 +19,23 @@ class Game:
         lines = fptr.split("\n")
 
         for line in lines:
-            # check if split
             line = line.split()
-            # print line
+
+            #check for blank lines and skip
             if len(line) ==0:
                 continue
-            if line[0] == "P":
-                self.num_points = int(line[1])
 
+            # Specify points/nodes
+            if line[0] == "P":
+                try:
+                    self.num_points = int(line[1])
+                except:
+                    print "Number of nodes specified incorrectly."
+                    sys.exit(1)
+
+            # Check for links
             if line[0] == "L":
+                # If number of same links between nodes are specified, make that many instances of the connection
                 if len(line) > 3:
                     for counter in range(int(line[3])):
                         self.links.append((int(line[1]), int(line[2])))
@@ -35,8 +43,25 @@ class Game:
                     self.links.append((int(line[1]), int(line[2])))
 
             if line[0] == "S":
-                self.special.append(int(line[1]))
-                self.special.append(int(line[2]))
+                if len(line) < 3:
+                    print "Error in specifying special nodes."
+                    sys.exit(1)
+                else:
+                    self.special.append(int(line[1]))
+                    self.special.append(int(line[2]))
+
+
+        if self.num_points == None or self.num_points == 0:
+            print "Points not specified"
+            sys.exit(1)
+        if len(self.special) < 2:
+            print "Special Nodes not defined."
+            sys.exit(1)
+        if len(self.links) ==0:
+            print "No links are defined."
+            sys.exit(1)
+
+
 
 
     def run(self):
