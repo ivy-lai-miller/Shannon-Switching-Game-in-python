@@ -40,7 +40,11 @@ class Game:
                     for counter in range(int(line[3])):
                         self.links.append((int(line[1]), int(line[2])))
                 else:
-                    self.links.append((int(line[1]), int(line[2])))
+                    try:
+                        self.links.append((int(line[1]), int(line[2])))
+                    except:
+                        print "Link is specified incorrectly."
+                        sys.exit(1)
 
             if line[0] == "S":
                 if len(line) < 3:
@@ -61,10 +65,14 @@ class Game:
             print "No links are defined."
             sys.exit(1)
 
-
-
+    # Print function for debugging
+    def prnt(self):
+        print "Number of points: %d" %self.num_points
+        print "Number of links: %d" %len(self.links)
+        print "Special Nodes are: %d, %d" %(self.special[0], self.special[1])
 
     def run(self):
+        # Set up the networkx graph/board
         G = nx.MultiGraph()
         G.add_node(self.num_points)
         G.add_edges_from(self.links)
@@ -95,13 +103,18 @@ class Game:
                 raw = raw_input("What would you like to do? ")
                 # pass
 
-            if status.upper() == "CUT":
+            if status == "CUT":
                 print "\nCUT's move. Type EXIT to end. a b to delete the edge between a and b."
                 raw = raw_input("What would you like to do? ")
                 # pass
 
-            if raw == "EXIT":
+            if raw.upper() == "EXIT":
                 playing = False
+                continue
+
+            if raw.upper() == "SHOW BOARD":
+                continue
+
 
                 # check if a move is valid
             else:
@@ -126,6 +139,7 @@ class Game:
                 if status == "CUT":
                     # If you cut, the connection is gone
                     # Make sure you also update the status now to SHORT
+
                     a, b = map(int, raw.split()) #this works there just has to be a space between the two numbers
                     try:
                         G.remove_edge(a,b)
@@ -147,4 +161,5 @@ if len(sys.argv)<= 1:
     print "Include file name in command line."
 else:
     test = Game(sys.argv[1])
+    # test.prnt()
     test.run()
