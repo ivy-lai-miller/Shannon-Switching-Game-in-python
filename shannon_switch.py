@@ -133,6 +133,8 @@ class Game:
                             playing=False
                         else:
                             status= "CUT"
+                            continue
+                        print "if there is an exception this shouldnt print"
                     except:
                         print "Bad input!"
 
@@ -148,6 +150,7 @@ class Game:
                             playing= False
                         else:
                             status="SHORT"
+                            continue
 
                     except:
                         # continue
