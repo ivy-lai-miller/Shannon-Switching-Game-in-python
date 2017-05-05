@@ -134,7 +134,7 @@ class Game:
                         else:
                             status= "CUT"
                             continue
-                        print "if there is an exception this shouldnt print"
+                        # print "if there is an exception this shouldnt print"
                     except:
                         print "Bad input!"
 
