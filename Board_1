@@ -1,0 +1,14 @@
+# 1
+# Specify number of points
+# P [number of points]
+P 2
+
+# Specify which points are special
+# S [first point] [second point]
+
+S 1 2
+
+# Specify links between points
+# L [point 1] [point 2] [number of links]
+
+L 1 2 1
