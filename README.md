@@ -10,9 +10,8 @@ NetworkX Viewer: https://github.com/jsexauer/networkx_viewer
 ## 1. Introduction to Shannon Switching Game
 
 ### Rules
-The Shannon switching game was created by Claude Shannon and is an example of a Maker-Breaker game.  In Shannon's original game the Short player colors in an edge but for this program we have chosen to merge the two nodes instead as explained below.  Two players, Short and Cut, alternate chosing edges on a graph.  The selection of two nodes by the Short player merges the two nodes to one sole node while maintaining all connections from the previous two nodes.  The selection of two nodes by the Cut player removes the edge between those two nodes from the graph.  Both the Short and Cut player must select two points that are directly connected by at least one edge.  Short's objective is merge the two special nodes, as indicated in red, while Cut's objective is to prevent this.
+The Shannon switching game was created by Claude Shannon and is an example of a Maker-Breaker game.  In Shannon's original game the Short player colors in a line but for this program we have chosen to merge the two nodes instead as explained below.  Two players, Short and Cut, alternate chosing lines on a board.  The selection of two nodes by the Short player merges the two nodes to one sole node while maintaining all connections from the previous two nodes.  The selection of two nodes by the Cut player removes the line between those two nodes from the board.  Both the Short and Cut player must select two points that are directly connected by at least one line.  Short's objective is merge the two special nodes, as indicated in red, while Cut's objective is to prevent this.
 
-Laura
 ## 2. Loading an input file
 The file requires an input file of type .txt (although .input files should also work). The input file should have the information shown below. Comments can be made within the setup file with a line starting with '#'.
 
